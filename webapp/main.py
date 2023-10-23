@@ -58,3 +58,22 @@ def checksum(body: text):
     import hashlib
     checksum = hashlib.sha256(body.text.encode('utf-8')).hexdigest()
     return {'checksum': checksum}
+
+# add a pydantic model that uses text as input and returns a list of tokens
+
+
+class Text(BaseModel):
+    text: str
+
+
+@app.post('/tokenizer')
+def tokenizer(body: Text):
+    """
+    Generate a list of tokens based on input text. Example POST request body:
+
+    {
+        "text": "Hello World"
+    }
+    """
+    tokens = body.text.split()
+    return {'tokens': tokens}
