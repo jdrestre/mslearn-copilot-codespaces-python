@@ -40,6 +40,32 @@ img{
               </p>
               <button onclick="window.location.href='/docs'" type="button" class="btn btn-info">Try it out</button>
               <button onclick="window.location.href='https://github.com/microsoft/codespaces-project-template-py/'" type="button" class="btn btn-info">Project source</button>
+              <!-- Create an interactive form using javasript that accepts text as input. The form must display a button and sumit an asynchronous request to the /generate API endpoint. -->
+              <form id="form" onsubmit="return false;">
+                <div class="form-group">
+                  <label for="text">Text</label>
+                  <input type="text" class="form-control" id="text" placeholder="Enter text">
+                </div>
+                <button onclick="generate()" type="submit" class="btn btn-primary">Generate</button>
+              </form>
+              <div id="result"></div>
+              <script>
+                function generate() {
+                  var text = document.getElementById("text").value;
+                  var result = document.getElementById("result");
+                  result.innerHTML = "Generating...";
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST", "/generate", true);
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                      result.innerHTML = xhr.responseText;
+                    }
+                  }
+                  var data = JSON.stringify({"text": text});
+                  xhr.send(data);
+                }
+              </script>
             </div>
           </div>
         </div>
