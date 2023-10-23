@@ -27,19 +27,25 @@ def root():
 @app.post('/generate')
 def generate(body: Body):
     """
-    Generate a pseudo-random token ID of twenty characters by default. Example POST request body:
+    Generate a pseudo-random token ID of twenty characters by default. Example
+POST request body:
 
     {
         "length": 20
     }
     """
-    string = base64.b64encode(os.urandom(64))[:body.length].decode('utf-8')
+    string = base64.b64encode(os.urandom(64))[:body.length]
+    string = string.decode('utf-8')
     return {'token': string}
+
 
 class text(BaseModel):
     text: str
 
-# Create a FastAPI endpoint that accepts a POST request with a JSON body containing a single field called "text" and returns a checksum of the text
+# Create a FastAPI endpoint that accepts a POST request with a JSON body
+# containing a single field called "text" and returns a checksum of the text
+
+
 @app.post('/checksum')
 def checksum(body: text):
     """
