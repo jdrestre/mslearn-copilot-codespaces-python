@@ -1,4 +1,4 @@
-import pytest # pip install pytest
+import pytest  # import pytest
 
 
 def str_to_bool(val):
@@ -50,6 +50,8 @@ def test_str_to_bool(input, expected):
 
 # use parametrize to test the str_to_bool function with a list of inputs for
 # True values
+
+
 @pytest.mark.parametrize("input", ['y', 'yes', ''])
 def test_str_to_bool_true(input):
     assert str_to_bool(input) is True
